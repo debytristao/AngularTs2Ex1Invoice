@@ -8,6 +8,7 @@ export class Invoice {
     discountPercentage : number;
     discountAmount : number;
     total : number;
+    
 
     /**
      * Subtotal required upon instantiation of a new invoice
@@ -21,7 +22,16 @@ export class Invoice {
         //Here is my discount amount loginc
         //I also want to assign my discount percent property
         
-        
+        if(this.subtotal >= 200){
+            this.discountPercentage = 0.2
+        }
+        else if (this.subtotal >= 100 ){
+            this.discountPercentage = 0.1
+        }
+        else{
+            this.discountPercentage = 0.0
+        }
+        this.discountAmount = this.subtotal - this.discountPercentage;
     }
 
 }
