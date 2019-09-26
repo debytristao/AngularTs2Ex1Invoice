@@ -22,7 +22,9 @@ export class Invoice {
         //Here is my discount amount loginc
         //I also want to assign my discount percent property
         
-        if(this.subtotal >= 200){
+        this.discountAmount = 0;
+
+        if(this.subtotal > 200){
             this.discountPercentage = 0.2
         }
         else if (this.subtotal >= 100 ){
@@ -31,7 +33,31 @@ export class Invoice {
         else{
             this.discountPercentage = 0.0
         }
-        this.discountAmount = this.subtotal - this.discountPercentage;
+        this.discountAmount = this.subtotal * this.discountPercentage;
+    }
+    /**
+     * Call the private discount call method before call the total
+     */
+    public calculateTotal(){
+        this.calculateDiscount();
+        this.total = this.subtotal - this.discountAmount;
+    }
+
+    public getTotalMessage():string{
+        let message : string;
+        if(this.subtotal == 0){
+            message = "No subtotal was provided";
+        }else{
+            message = `Subtotal: ${this.subtotal.toFixed(2)}\n`;
+            message += `Discount Amount: ${this.discountAmount.toFixed(2)}\n`;
+            message += `Total: ${this.total.toFixed(2)}`;
+        }
+
+        return message;
     }
 
 }
+//Payground
+let invoice : Invoice = new Invoice(250);
+invoice.calculateTotal();
+console.log(invoice.getTotalMessage());
